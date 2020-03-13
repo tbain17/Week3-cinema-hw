@@ -26,4 +26,31 @@ class Ticket
     @id = film['id'].to_i()
   end
 
+  def delete()
+    sql = "DELETE FROM tickets WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
+  def update()
+    sql = "UPDATE tickets SET
+    (
+    customer_id,
+    film_id
+    )
+    =
+    (
+    $1, $2
+    )
+    WHERE id = $3"
+    values = [@customer_id, @film_id, @id]
+    SqlRunner.run(sql, values)
+  end
+
+  def self.all()
+    sql = "SELECT * FROM tickets"
+    data = SqlRunner.run(sql)
+    return data.map{|ticket|Ticket.new(ticket)}
+  end
+
 end
