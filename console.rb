@@ -11,6 +11,7 @@ Customer.delete_all()
 Film.delete_all()
 
 
+
 customer1 = Customer.new(
   {
     "name" => "Andrew",
@@ -69,10 +70,41 @@ film3 = Film.new(
 )
 film3.save()
 
+screening_film_1 = Screening.new(
+  {
+    "film_id" => film1.id,
+    "screening1" => "1030",
+    "screening2" => "1430",
+    "screening3" => "1900"
+  }
+)
+screening_film_1.save()
+
+screening_film_2 = Screening.new(
+  {
+    "film_id" => film2.id,
+    "screening1" => "1000",
+    "screening2" => "1730",
+    "screening3" => "2200"
+  }
+)
+screening_film_2.save()
+
+screening_film_3 = Screening.new(
+  {
+    "film_id" => film3.id,
+    "screening1" => "1230",
+    "screening2" => "1530",
+    "screening3" => "2000"
+  }
+)
+screening_film_3.save()
+
 ticket1 = Ticket.new(
   {
     "customer_id" => customer1.id,
-    "film_id" => film2.id
+    "film_id" => film2.id,
+    "screening" => screening_film_2.screening1
   }
 )
 ticket1.save()
@@ -80,7 +112,8 @@ ticket1.save()
 ticket2 = Ticket.new(
   {
     "customer_id" => customer1.id,
-    "film_id" => film1.id
+    "film_id" => film1.id,
+    "screening" => screening_film_1.screening2
   }
 )
 ticket2.save()
@@ -88,7 +121,8 @@ ticket2.save()
 ticket3 = Ticket.new(
   {
     "customer_id" => customer3.id,
-    "film_id" => film2.id
+    "film_id" => film2.id,
+    "screening" => screening_film_2.screening2
   }
 )
 ticket3.save()
@@ -96,7 +130,8 @@ ticket3.save()
 ticket4 = Ticket.new(
   {
     "customer_id" => customer2.id,
-    "film_id" => film3.id
+    "film_id" => film3.id,
+    "screening" => screening_film_3.screening3
   }
 )
 ticket4.save()
@@ -104,7 +139,8 @@ ticket4.save()
 ticket5 = Ticket.new(
   {
     "customer_id" => customer2.id,
-    "film_id" => film1.id
+    "film_id" => film1.id,
+    "screening" => screening_film_1.screening3
   }
 )
 ticket5.save()
@@ -112,7 +148,8 @@ ticket5.save()
 ticket6 = Ticket.new(
   {
     "customer_id" => customer1.id,
-    "film_id" => film3.id
+    "film_id" => film3.id,
+    "screening" => screening_film_3.screening1
   }
 )
 ticket6.save()
@@ -120,28 +157,38 @@ ticket6.save()
 ticket7 = Ticket.new(
   {
     "customer_id" => customer3.id,
-    "film_id" => film3.id
+    "film_id" => film3.id,
+    "screening" => screening_film_3.screening3
   }
 )
 ticket7.save()
 
-ticket7 = Ticket.new(
+ticket8 = Ticket.new(
   {
     "customer_id" => customer4.id,
-    "film_id" => film3.id
+    "film_id" => film3.id,
+    "screening" => screening_film_3.screening3
   }
 )
-ticket7.save()
-
-screening1 = Screening.new(
+ticket8.save()
+ticket9 = Ticket.new(
   {
-    "title" => films.title,
-    "screening1" => "1030"
-    "screening2" => "1430"
-    "screening3" => "1900"
+    "customer_id" => customer5.id,
+    "film_id" => film3.id,
+    "screening" => screening_film_3.screening3
   }
 )
-screening1.save()
+ticket9.save()
+ticket9 = Ticket.new(
+  {
+    "customer_id" => customer2.id,
+    "film_id" => film3.id,
+    "screening" => screening_film_3.screening3
+  }
+)
+ticket9.save()
+
+
 
 
 

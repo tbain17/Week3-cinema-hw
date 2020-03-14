@@ -72,8 +72,58 @@ class Film
   def count_customers()
     total_customers = self.customers()
     return total_customers.length()
-
   end
+
+  def tickets()
+    sql = "SELECT * FROM tickets WHERE film_id = $1"
+    values = [@id]
+    all_tickets = SqlRunner.run(sql, values)
+    return all_tickets.map{|ticket| Ticket.new(ticket)}
+  end
+
+#get screenings AND get film info. map over each then combine in Ruby
+
+  def self.screenings()
+    sql = "SELECT * FROM screenings"
+    all_screenings = SqlRunner.run(sql).map{|screening| Screening.new(screening)}
+    return all_screenings
+  end
+
+  def screenings()
+    sql = "SELECT * FROM screenings where film_id = $1"
+    values = [@id]
+    all_screenings = SqlRunner.run(sql, values).map{|screening| Screening.new(screening)}
+    return all_screenings
+  end
+
+  def popular_screening()
+    sql = "SELECT screening FROM tickets WHERE film_id = $1 GROUP BY screening ORDER BY COUNT(*) DESC LIMIT 1"
+    values = [@id]
+    screening = SqlRunner.run(sql, values).map{|screening| Ticket.new(screening)}
+    return screening[0].screening
+  end
+
+
+#   def most_common_value(a)
+#   a.group_by do |e|
+#     e
+#   end.values.max_by(&:size).first
+# end
+
+# SELECT screening FROM tickets GROUP BY screening ORDER BY COUNT(*) DESC LIMIT 1;
+
+    #get screenings then return the most common value from there
+
+
+  # def film_screening_times()
+  #   sql = "SELECT films.title,screenings.screening1, screenings.screening2, screenings.screening3 FROM films INNER JOIN screenings on films.id = screenings.film_id WHERE screenings.film_id = $1"
+  #   values = [@id]
+  #   return SqlRunner.run(sql).map{}
+  # end
+  # def self.screening_times()
+  #   sql = "SELECT films.title,screenings.screening1, screenings.screening2, screenings.screening3 FROM films INNER JOIN screenings on films.id = screenings.film_id"
+  #   return SqlRunner.run(sql).map{|screening|Screening.new(screening)}
+  # end
 
 
 
