@@ -63,24 +63,25 @@ class Customer
   end
 
   def films()
-    sql = "SELECT films.* FROM films INNER JOIN tickets ON film.id = tickets.film_id WHERE customer_id = $1"
+    sql = "SELECT films.* FROM films INNER JOIN tickets ON films.id = tickets.film_id WHERE customer_id = $1"
     values = [@id]
     film_data = SqlRunner.run(sql, values)
     return Film.map_items(film_data)
   end
 
   def tickets()
-    sql = "SELECT * FROM tickets WHERE tickets.customer_id = $1"
+    sql = "SELECT * FROM tickets WHERE customer_id = $1"
     values = [@id]
-    tickets = SqlRunner.run(sql, values)
-    return tickets.map{|ticket| Tickets.new(ticket)}
+    all_tickets = SqlRunner.run(sql, values)
+    return all_tickets.map{|ticket| Ticket.new(ticket)}
   end
 
-  def buy_ticket()
-    tickets = self.tickets()
-    ticket_prices = tickets.map{|ticket| ticket.price}
-    total_ticket_cost = ticket_prices.sum
-    return @funds - total_ticket_cost
+  def buy_tickets()
+    films = self.films()
+    prices = films.map{|film| film.price}
+    total = prices.sum
+    funds = @funds - total if total <= @funds
+    return funds
   end
 
   def count_tickets()

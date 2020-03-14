@@ -22,8 +22,8 @@ class Ticket
     )
     RETURNING *'
     values = [@customer_id, @film_id]
-    film = SqlRunner.run(sql, values)[0]
-    @id = film['id'].to_i()
+    ticket = SqlRunner.run(sql, values)[0]
+    @id = ticket['id'].to_i()
   end
 
   def delete()
