@@ -75,7 +75,8 @@ screening_film_1 = Screening.new(
     "film_id" => film1.id,
     "screening1" => "1030",
     "screening2" => "1430",
-    "screening3" => "1900"
+    "screening3" => "1900",
+    "capacity" => 5
   }
 )
 screening_film_1.save()
@@ -85,7 +86,8 @@ screening_film_2 = Screening.new(
     "film_id" => film2.id,
     "screening1" => "1000",
     "screening2" => "1730",
-    "screening3" => "2200"
+    "screening3" => "2200",
+    "capacity" => 4
   }
 )
 screening_film_2.save()
@@ -95,7 +97,8 @@ screening_film_3 = Screening.new(
     "film_id" => film3.id,
     "screening1" => "1230",
     "screening2" => "1530",
-    "screening3" => "2000"
+    "screening3" => "2000",
+    "capacity" => 3
   }
 )
 screening_film_3.save()
@@ -179,14 +182,14 @@ ticket9 = Ticket.new(
   }
 )
 ticket9.save()
-ticket9 = Ticket.new(
+ticket10 = Ticket.new(
   {
     "customer_id" => customer2.id,
     "film_id" => film3.id,
     "screening" => screening_film_3.screening3
   }
 )
-ticket9.save()
+ticket10.save()
 
 
 

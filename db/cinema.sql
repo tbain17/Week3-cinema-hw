@@ -20,7 +20,8 @@ CREATE TABLE screenings (
   film_id INT REFERENCES films(id) ON DELETE CASCADE,
   screening1 VARCHAR(255),
   screening2 VARCHAR(255),
-  screening3 VARCHAR(255)
+  screening3 VARCHAR(255),
+  capacity INT
 );
 
 CREATE TABLE tickets (

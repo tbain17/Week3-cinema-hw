@@ -65,11 +65,12 @@ class Ticket
     return data.map{|ticket| Ticket.new(ticket)}
   end
 
-
-  # SELECT       `column`
-  #   FROM     `your_table`
-  #   GROUP BY `column`
-  #   ORDER BY COUNT(*) DESC
-  #   LIMIT    1;
+  def total_customers_per_screening()
+    sql = "SELECT * FROM tickets WHERE film_id = $1 AND screening = $2"
+    values = [@film_id, @screening]
+    result = SqlRunner.run(sql, values)
+    count = result.map{|ticket|Ticket.new(ticket)}.length()
+    return count
+  end
 
 end

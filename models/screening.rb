@@ -3,7 +3,7 @@ require_relative('../db/sql_runner')
 class Screening
 
   attr_reader :id
-  attr_accessor :film_id, :screening1, :screening2, :screening3
+  attr_accessor :film_id, :screening1, :screening2, :screening3, :capacity
 
   def initialize(options)
     @id = options['id'].to_i() if options['id']
@@ -11,6 +11,7 @@ class Screening
     @screening1 = options['screening1']
     @screening2 = options['screening2']
     @screening3 = options['screening3']
+    @capacity = options['capacity'].to_i()
   end
 
   def save()
@@ -18,14 +19,15 @@ class Screening
     film_id,
     screening1,
     screening2,
-    screening3
+    screening3,
+    capacity
     )
     values
     (
-    $1, $2, $3, $4
+    $1, $2, $3, $4, $5
     )
     RETURNING *"
-    values = [@film_id, @screening1, @screening2, @screening3]
+    values = [@film_id, @screening1, @screening2, @screening3, @capacity]
     screenings = SqlRunner.run(sql, values)[0]
     @id = screenings['id'].to_i()
   end
@@ -34,9 +36,6 @@ class Screening
     sql = "DELETE FROM screenings"
     SqlRunner.run(sql)
   end
-
-
-
 
 
   # def films()

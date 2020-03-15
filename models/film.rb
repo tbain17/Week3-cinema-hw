@@ -81,8 +81,6 @@ class Film
     return all_tickets.map{|ticket| Ticket.new(ticket)}
   end
 
-#get screenings AND get film info. map over each then combine in Ruby
-
   def self.screenings()
     sql = "SELECT * FROM screenings"
     all_screenings = SqlRunner.run(sql).map{|screening| Screening.new(screening)}
@@ -102,29 +100,5 @@ class Film
     screening = SqlRunner.run(sql, values).map{|screening| Ticket.new(screening)}
     return screening[0].screening
   end
-
-
-#   def most_common_value(a)
-#   a.group_by do |e|
-#     e
-#   end.values.max_by(&:size).first
-# end
-
-# SELECT screening FROM tickets GROUP BY screening ORDER BY COUNT(*) DESC LIMIT 1;
-
-    #get screenings then return the most common value from there
-
-
-  # def film_screening_times()
-  #   sql = "SELECT films.title,screenings.screening1, screenings.screening2, screenings.screening3 FROM films INNER JOIN screenings on films.id = screenings.film_id WHERE screenings.film_id = $1"
-  #   values = [@id]
-  #   return SqlRunner.run(sql).map{}
-  # end
-  # def self.screening_times()
-  #   sql = "SELECT films.title,screenings.screening1, screenings.screening2, screenings.screening3 FROM films INNER JOIN screenings on films.id = screenings.film_id"
-  #   return SqlRunner.run(sql).map{|screening|Screening.new(screening)}
-  # end
-
-
 
 end
